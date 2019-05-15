@@ -5,6 +5,8 @@ from django.db import models
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=100)
+    # TODO
+    # unique name - without this feature records in database are repeating
 
     def __str__(self):
         return self.name
@@ -26,8 +28,9 @@ class CarModel(models.Model):
     name = models.CharField(max_length=100)
     passengers = models.PositiveIntegerField()
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
-    #
-    # class Meta:  # different engines/category... for 1 car name allowed
+    # TODO
+    # unique parameters
+    # class Meta:
     #     unique_together = ('category', 'engine', 'name', 'passengers')
 
     def __str__(self):
