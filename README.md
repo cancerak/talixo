@@ -1,7 +1,7 @@
 # Talixo
 Talixo recruitment task - python/django API
-## database models - structure
-Every database model has pk attribute (django builtin). Additional field are listed below.
+## Database models - structure
+Every database model has pk attribute (django builtin). Additional fields are listed below.
 ### Car
     car_model: foreign key
     number_plate: unique, max 10 characters
