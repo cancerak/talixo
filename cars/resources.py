@@ -13,6 +13,7 @@ class ManufacturerResource(ModelResource):
         authorization = Authorization()
         fields = ['name']
         validation = FormValidation(form_class=ManufacturerForm)
+        # validation.is_valid()
 
 
 class CarModelResource(ModelResource):

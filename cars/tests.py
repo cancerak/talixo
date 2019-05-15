@@ -19,47 +19,47 @@ from cars.models import Car
 # }
 
 
-class CarResourceTest(ResourceTestCaseMixin, TestCase):
-
-    fixtures = ['test_cars.json']
-
-    def setUp(self):
-        super(CarResourceTest, self).setUp()
-
-        self.car_1 = Car.objects.get(number_plate='KR 001')
-
-        self.detail_url = '/cars_api/car/{0}/'.format(self.car_1.pk)
-
-        self.manufacturer = {
-            'name': 'manufacturer name'
-        }
-        self.car_model = {
-            'category': 'economy',
-            'engine': 'electric',
-            'manufacturer': self.manufacturer,
-            'name': 'model name',
-            'passengers': 5
-        }
-        self.post_data = {
-            'car_model': self.car_model,
-            'number_plate': 'KR 001',
-            'year': 2017
-        }
-
-    def test_get_list_json(self):
-        resp = self.api_client.get('/cars_api/car/', format='json')
-        self.assertValidJSONResponse(resp)
-
-        # Scope out the data for correctness.
-        self.assertEqual(len(self.deserialize(resp)['objects']), 2)
-        # # Here, we're checking an entire structure for the expected data.
-        # self.assertEqual(self.deserialize(resp)['objects'][0], {
-        #     'pk': str(self.car_1.pk),
-        #     'title': 'First post',
-        #     'slug': 'first-post',
-        #     'created': '2012-05-01T19:13:42',
-        #     'resource_uri': '/api/v1/entry/{0}/'.format(self.car_1.pk)
-        # })
+# class CarResourceTest(ResourceTestCaseMixin, TestCase):
+#
+#     fixtures = ['test_cars.json']
+#
+#     def setUp(self):
+#         super(CarResourceTest, self).setUp()
+#
+#         self.car_1 = Car.objects.get(number_plate='KR 001')
+#
+#         self.detail_url = '/cars_api/car/{0}/'.format(self.car_1.pk)
+#
+#         self.manufacturer = {
+#             'name': 'manufacturer name'
+#         }
+#         self.car_model = {
+#             'category': 'economy',
+#             'engine': 'electric',
+#             'manufacturer': self.manufacturer,
+#             'name': 'model name',
+#             'passengers': 5
+#         }
+#         self.post_data = {
+#             'car_model': self.car_model,
+#             'number_plate': 'KR 001',
+#             'year': 2017
+#         }
+#
+#     def test_get_list_json(self):
+#         resp = self.api_client.get('/cars_api/car/', format='json')
+#         self.assertValidJSONResponse(resp)
+#
+#         # Scope out the data for correctness.
+#         self.assertEqual(len(self.deserialize(resp)['objects']), 2)
+#         # # Here, we're checking an entire structure for the expected data.
+#         # self.assertEqual(self.deserialize(resp)['objects'][0], {
+#         #     'pk': str(self.car_1.pk),
+#         #     'title': 'First post',
+#         #     'slug': 'first-post',
+#         #     'created': '2012-05-01T19:13:42',
+#         #     'resource_uri': '/api/v1/entry/{0}/'.format(self.car_1.pk)
+#         # })
 
     # def test_get_detail_json(self):
     #     resp = self.api_client.get(self.detail_url, format='json')

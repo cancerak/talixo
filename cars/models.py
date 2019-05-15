@@ -4,18 +4,18 @@ from django.db import models
 
 
 class Manufacturer(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
 
 
 class CarModel(models.Model):
-    CATEGORIES = (
+    CATEGORIES = (  # assumption: categories won't be changed, no separate db table needed
         ('economy', 'Economy class'),
         ('business', 'Business class'),
         ('first', 'First class'),
-    )  # assumption: categories won't be changed, no separate db table needed
+    )
     ENGINES = (
         ('normal', 'Combustion engine'),
         ('hybrid', 'Hybrid engine'),
@@ -23,9 +23,12 @@ class CarModel(models.Model):
     )
     category = models.CharField(max_length=8, choices=CATEGORIES)
     engine = models.CharField(max_length=8, choices=ENGINES)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)  # same engines/category... for 1 car name
     passengers = models.PositiveIntegerField()
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+    #
+    # class Meta:  # different engines/category... for 1 car name allowed
+    #     unique_together = ('category', 'engine', 'name', 'passengers', 'manufacturer')
 
     def __str__(self):
         return str(self.manufacturer) + ' ' + self.name
