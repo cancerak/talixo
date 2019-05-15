@@ -1,7 +1,7 @@
 from tastypie import fields
 from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource
-from tastypie.validation import FormValidation
+from tastypie.validation import FormValidation, CleanedDataFormValidation
 
 from cars.forms import *
 from cars.models import *
@@ -12,7 +12,7 @@ class ManufacturerResource(ModelResource):
         queryset = Manufacturer.objects.all()
         authorization = Authorization()
         fields = ['name']
-        validation = FormValidation(form_class=ManufacturerForm)
+        validation = CleanedDataFormValidation(form_class=ManufacturerForm)
         # validation.is_valid()
 
 
