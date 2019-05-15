@@ -1,18 +1,20 @@
 from tastypie import fields
 from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource
-from tastypie.validation import FormValidation
+from tastypie.validation import FormValidation, Validation
 
 from cars.forms import *
 from cars.models import *
+from cars.validation import CarModelValidation
 
 
 class ManufacturerResource(ModelResource):
     class Meta:
         queryset = Manufacturer.objects.all()
         authorization = Authorization()
-        fields = ['name']
+        # validation = Validation()
         validation = FormValidation(form_class=ManufacturerForm)
+        fields = ['name']
         # validation.is_valid()
 
 
@@ -22,8 +24,10 @@ class CarModelResource(ModelResource):
     class Meta:
         queryset = CarModel.objects.all()
         authorization = Authorization()
+        # validation = FormValidation(form_class=CarModelForm)
+        # validation = CarModelValidation(form_class=CarModelForm)
+        validation = CarModelValidation()
         fields = ['category', 'engine', 'name', 'passengers', 'manufacturer']
-        validation = FormValidation(form_class=CarModelForm)
 
 
 class CarResource(ModelResource):

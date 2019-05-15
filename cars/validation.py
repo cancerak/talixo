@@ -1,7 +1,9 @@
 from tastypie.validation import Validation
 
+from cars.models import CarModel, Manufacturer
 
-class ManufacturerValidation(Validation):
+
+class CarModelValidation(Validation):
     def is_valid(self, bundle, request=None):
         if not bundle.data:
             return {'__all__': 'No data provided.'}
@@ -13,6 +15,20 @@ class ManufacturerValidation(Validation):
         #
         #     if value == :
         #         errors[key] = ['NOT ENOUGH AWESOME. NEEDS MORE.']
-        bundle.data.items()
+        items = bundle.data
 
-        return errors
+        category = items.get('category')
+        engine = items.get('engine')
+        name = items.get('name')
+        passengers = items.get('passengers')
+        print(category)
+        print(engine)
+
+        duplicate = CarModel.objects.filter(category=category, engine=engine, name=name, passengers=passengers).first()
+        if duplicate:
+            print("duplicate: ")
+            print(duplicate)
+        else:
+            print("no duplicate")
+
+        # return errors
